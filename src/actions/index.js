@@ -5,6 +5,7 @@ import {
   SIGN_OUT,
   CREATE_RECIPE,
   FETCH_RECIPES,
+  FETCH_MYRECIPES,
   FETCH_RECIPE,
   DELETE_RECIPE,
   EDIT_RECIPE,
@@ -40,6 +41,11 @@ export const createRecipe = (formValues) => async (dispatch, getState) => {
 export const fetchRecipes = () => async (dispatch) => {
   const response = await recipes.get("/recipes");
   dispatch({ type: FETCH_RECIPES, payload: response.data });
+};
+
+export const fetchMyRecipes = (userId) => async (dispatch) => {
+  const response = await recipes.get(`/recipes/user/${userId}`);
+  dispatch({ type: FETCH_MYRECIPES, payload: response.data });
 };
 
 export const fetchRecipe = (id) => async (dispatch) => {

@@ -16,11 +16,11 @@ const App = () => {
         <Header />
         <div className="ui segment">
           <Route path="/" exact component={AllRecipes} />
-          <Route path="/recipes" exact component={MyRecipes} />
+          <Route path="/recipes/" exact component={MyRecipes} />
           <Route path="/recipes/create" exact component={Create} />
           <Route path="/recipes/edit/:id" exact component={Edit} />
           <Route path="/recipes/delete/:id" exact component={Delete} />
-          <Route path="/recipes/:id" exact component={ShowRecipe} />
+          <Route path="/recipes/show/:id" exact component={ShowRecipe} />
         </div>
       </Router>
     </div>

@@ -7,6 +7,7 @@ class AllRecipes extends React.Component {
   componentDidMount() {
     this.props.fetchRecipes();
   }
+
   renderAdmin(recipe) {
     if (recipe.userId === this.props.currentUserId) {
       return (
@@ -24,7 +25,7 @@ class AllRecipes extends React.Component {
           {this.renderAdmin(recipe)}
           <div className="left floated content">
             <Link
-              to={`/recipes/${recipe._id}`}
+              to={`/recipes/show/${recipe._id}`}
               className="ui icon basic button"
             >
               <i className="large icon sticky note outline" />
@@ -58,7 +59,7 @@ class AllRecipes extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    recipes: Object.values(state.recipes),
+    recipes: Object.values(state.recipes.allRecipes),
     currentUserId: state.auth.userId,
     isSignedIn: state.auth.isSignedIn,
   };

@@ -1,11 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchRecipes } from "../../actions";
+import { fetchMyRecipes } from "../../actions";
 
 class MyRecipes extends React.Component {
   componentDidMount() {
-    this.props.fetchRecipes();
+    this.props.fetchMyRecipes(this.props.currentUserId);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currentUserId !== prevProps.currentUserId) {
+      this.props.fetchMyRecipes(this.props.currentUserId);
+    }
   }
 
   renderAdmin(recipe) {
@@ -27,20 +33,17 @@ class MyRecipes extends React.Component {
   }
   renderList() {
     if (this.props.isSignedIn) {
-      const filtered = this.props.recipes.filter(
-        (recipe) => recipe.userId === this.props.currentUserId
-      );
-      return filtered.map((recipe) => {
+      return this.props.recipes.map((recipe) => {
         return (
           <div className="item" key={recipe._id}>
             {this.renderAdmin(recipe)}
             <div className="left floated content">
-              <Link
-                to={`/recipes/${recipe._id}`}
+              {/* <Link
+                to={`/recipes/show/${recipe._id}`}
                 className="ui icon basic button"
               >
                 <i className="large icon sticky note outline" />
-              </Link>
+              </Link> */}
             </div>
             <div className="content">
               {recipe.title}
@@ -86,10 +89,10 @@ class MyRecipes extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    recipes: Object.values(state.recipes),
+    recipes: Object.values(state.recipes.myRecipes),
     currentUserId: state.auth.userId,
     isSignedIn: state.auth.isSignedIn,
   };
 };
 
-export default connect(mapStateToProps, { fetchRecipes })(MyRecipes);
+export default connect(mapStateToProps, { fetchMyRecipes })(MyRecipes);

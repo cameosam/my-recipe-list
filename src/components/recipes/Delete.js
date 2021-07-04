@@ -47,7 +47,7 @@ class Delete extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { recipe: state.recipes[ownProps.match.params.id] };
+  return { recipe: state.recipes.myRecipes[ownProps.match.params.id] };
 };
 
 export default connect(mapStateToProps, { fetchRecipe, deleteRecipe })(Delete);

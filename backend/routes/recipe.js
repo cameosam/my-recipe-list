@@ -3,6 +3,12 @@ import Recipe from "../models/recipe.model.js";
 
 const recipeRouter = express.Router();
 
+recipeRouter.route("/user/:userId").get((req, res) => {
+  Recipe.find({ userId: req.params.userId })
+    .then((recipe) => res.json(recipe))
+    .catch((e) => res.status(400).json("Error: " + e));
+});
+
 recipeRouter.route("/").get((req, res) => {
   Recipe.find()
     .then((recipe) => res.json(recipe))
